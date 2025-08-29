@@ -1,0 +1,25 @@
+{
+    "signup" : {
+        "FirstName" : "id:registerFirstName",
+        "LastName" : "id:registerLastName",
+        "Email" : "id:registerEmail",
+        "PhoneNo" : "id:registerPhone",
+        "DOB" : "id:registerDob",
+        "Gender" : "id:registerGender",
+        "streetAdd" : "id:registerAddress",
+        "City" : "id:registerCity",
+        "State" : "id:registerState",
+        "zipCode" : "id:registerZip",
+        "Country" : "id:registerCountry",
+        "Occupation" : "id:registerOccupation",
+        "Password" : "id:registerPassword",
+        "confirmPassword" : "id:registerConfirmPassword",
+        "termsAndConditions": "id:agreeTerms",
+        "createAccount": "//a[contains(text(),'Create')]"
+    },
+    "Login": {
+        "Email": "id:loginEmail",
+        "Password": "id:loginPassword",
+        "loginButton": "(//button[@type='submit' and @class='btn btn-primary'])[1]"
+    }
+}

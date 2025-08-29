@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopMart - Login & Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Clean black and white professional design with better spacing */
+        :root {
+            --primary-black: #000000;
+            --secondary-gray: #333333;
+            --light-gray: #666666;
+            --neutral-white: #ffffff;
+            --neutral-light: #f8f9fa;
+            --border-gray: #e0e0e0;
+            --success-green: #28a745;
+            --error-red: #dc3545;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: var(--secondary-gray);
+            line-height: 1.6;
+        }
+
+        /* Professional header with clean styling */
+        .main-header {
+            background: var(--neutral-white);
+            border-bottom: 1px solid var(--border-gray);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-brand {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-black);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-brand:hover {
+            color: var(--secondary-gray);
+            text-decoration: none;
+        }
+
+        .header-brand i {
+            color: var(--primary-black);
+            margin-right: 0.5rem;
+        }
+
+        .nav-link {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-black);
+        }
+
+        /* Centered container with proper spacing */
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 20px 20px;
+        }
+
+        /* Clean rectangular card design */
+        .auth-card {
+            background: var(--neutral-white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid var(--border-gray);
+        }
+
+        .auth-header {
+            background: var(--primary-black);
+            color: var(--neutral-white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .auth-header h2 {
+            color: var(--neutral-white);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .auth-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .auth-body {
+            padding: 2rem;
+        }
+
+        /* Clean form styling with proper spacing */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            color: var(--secondary-gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .form-control {
+            border: 2px solid var(--border-gray);
+            border-radius: 6px;
+            padding: 0.75rem;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: var(--neutral-white);
+            color: var(--secondary-gray);
+            width: 100%;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-black);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+            outline: none;
+        }
+
+        .form-control.is-invalid {
+            border-color: var(--error-red);
+        }
+
+        .form-control.is-valid {
+            border-color: var(--success-green);
+        }
+
+        .invalid-feedback, .valid-feedback {
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        .invalid-feedback {
+            color: var(--error-red);
+        }
+
+        .valid-feedback {
+            color: var(--success-green);
+        }
+
+        /* Professional button styling */
+        .btn-primary {
+            background: var(--primary-black);
+            border: none;
+            border-radius: 6px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--neutral-white);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-gray);
+            transform: translateY(-1px);
+        }
+
+        .auth-footer {
+            padding: 1.5rem 2rem;
+            text-align: center;
+            background: var(--neutral-light);
+            border-top: 1px solid var(--border-gray);
+        }
+
+        .auth-footer p {
+            margin: 0;
+            color: var(--light-gray);
+        }
+
+        .auth-footer a {
+            color: var(--primary-black);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Welcome section styling */
+        .welcome-section {
+            display: none;
+            text-align: center;
+        }
+
+        .welcome-section.active {
+            display: block;
+        }
+
+        .welcome-card {
+            background: var(--neutral-white);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            box-shadow: var(--shadow-lg);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .welcome-icon {
+            font-size: 3rem;
+            color: var(--success-green);
+            margin-bottom: 1rem;
+        }
+
+        .welcome-card h2 {
+            color: var(--primary-black);
+            margin-bottom: 1rem;
+        }
+
+        .btn-outline-primary {
+            border: 2px solid var(--primary-black);
+            color: var(--primary-black);
+            background: transparent;
+            border-radius: 6px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--primary-black);
+            color: var(--neutral-white);
+        }
+
+        /* Password strength indicator */
+        .password-strength {
+            margin-top: 0.5rem;
+        }
+
+        .strength-bar {
+            height: 4px;
+            background: var(--border-gray);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+        }
+
+        .strength-text {
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            color: var(--light-gray);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .auth-container {
+                padding: 80px 15px 15px 15px;
+            }
+            
+            .auth-card {
+                max-width: 100%;
+            }
+            
+            .auth-body {
+                padding: 1.5rem;
+            }
+            
+            .nav-link {
+                margin-left: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Clean header with proper navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="#" class="header-brand">
+                    <i class="fas fa-shopping-bag"></i>
+                    ShopMart
+                </a>
+                <nav class="d-flex">
+                    <a href="#" class="nav-link">Home</a>
+                    <a href="#" class="nav-link">About</a>
+                    <a href="#" class="nav-link">Contact</a>
+                    <a href="#" class="nav-link">Help</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="auth-container">
+        <!-- Login Form Section -->
+        <div class="auth-card" id="loginSection">
+            <div class="auth-header">
+                <h2>Welcome Back</h2>
+                <p>Sign in to your account to continue</p>
+            </div>
+            <div class="auth-body">
+                <form id="loginForm" novalidate>
+                    <div class="form-group">
+                        <label class="form-label" for="loginEmail">
+                            <i class="fas fa-envelope me-2"></i>Email Address
+                        </label>
+                        <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email">
+                        <div class="invalid-feedback" id="loginEmailError"></div>
+                        <div class="valid-feedback" id="loginEmailSuccess"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="loginPassword">
+                            <i class="fas fa-lock me-2"></i>Password
+                        </label>
+                        <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password">
+                        <div class="invalid-feedback" id="loginPasswordError"></div>
+                        <div class="valid-feedback" id="loginPasswordSuccess"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                    </button>
+                </form>
+            </div>
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="#" onclick="showRegister()">Create one here</a></p>
+            </div>
+        </div>
+
+        <!-- Register Form Section -->
+        <div class="auth-card" id="registerSection" style="display: none;">
+            <div class="auth-header">
+                <h2>Create Account</h2>
+                <p>Join us and start your shopping journey</p>
+            </div>
+            <div class="auth-body">
+                <form id="registerForm" novalidate>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="registerFirstName">First Name</label>
+                                <input type="text" class="form-control" id="registerFirstName" placeholder="First name">
+                                <div class="invalid-feedback" id="firstNameError"></div>
+                                <div class="valid-feedback" id="firstNameSuccess"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="registerLastName">Last Name</label>
+                                <input type="text" class="form-control" id="registerLastName" placeholder="Last name">
+                                <div class="invalid-feedback" id="lastNameError"></div>
+                                <div class="valid-feedback" id="lastNameSuccess"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="registerEmail">Email Address</label>
+                        <input type="email" class="form-control" id="registerEmail" placeholder="Enter your email">
+                        <div class="invalid-feedback" id="registerEmailError"></div>
+                        <div class="valid-feedback" id="registerEmailSuccess"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="registerPhone">Phone Number</label>
+                        <input type="tel" class="form-control" id="registerPhone" placeholder="Enter 10-digit phone number">
+                        <div class="invalid-feedback" id="phoneError"></div>
+                        <div class="valid-feedback" id="phoneSuccess"></div>
+                    </div>
+                    <!-- Added date of birth field -->
+                    <div class="form-group">
+                        <label class="form-label" for="registerDob">Date of Birth</label>
+                        <input type="date" class="form-control" id="registerDob">
+                        <div class="invalid-feedback" id="dobError"></div>
+                        <div class="valid-feedback" id="dobSuccess"></div>
+                    </div>
+                    <!-- Added gender selection field -->
+                    <div class="form-group">
+                        <label class="form-label" for="registerGender">Gender</label>
+                        <select class="form-control" id="registerGender">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                            <option value="prefer-not-to-say">Prefer not to say</option>
+                        </select>
+                        <div class="invalid-feedback" id="genderError"></div>
+                        <div class="valid-feedback" id="genderSuccess"></div>
+                    </div>
+                    <!-- Added address field -->
+                    <div class="form-group">
+                        <label class="form-label" for="registerAddress">Street Address</label>
+                        <input type="text" class="form-control" id="registerAddress" placeholder="Enter your street address">
+                        <div class="invalid-feedback" id="addressError"></div>
+                        <div class="valid-feedback" id="addressSuccess"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Added city field -->
+                            <div class="form-group">
+                                <label class="form-label" for="registerCity">City</label>
+                                <input type="text" class="form-control" id="registerCity" placeholder="Enter your city">
+                                <div class="invalid-feedback" id="cityError"></div>
+                                <div class="valid-feedback" id="citySuccess"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Added state field -->
+                            <div class="form-group">
+                                <label class="form-label" for="registerState">State</label>
+                                <input type="text" class="form-control" id="registerState" placeholder="Enter your state">
+                                <div class="invalid-feedback" id="stateError"></div>
+                                <div class="valid-feedback" id="stateSuccess"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Added ZIP code field -->
+                            <div class="form-group">
+                                <label class="form-label" for="registerZip">ZIP Code</label>
+                                <input type="text" class="form-control" id="registerZip" placeholder="Enter ZIP code">
+                                <div class="invalid-feedback" id="zipError"></div>
+                                <div class="valid-feedback" id="zipSuccess"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Added country field -->
+                            <div class="form-group">
+                                <label class="form-label" for="registerCountry">Country</label>
+                                <select class="form-control" id="registerCountry">
+                                    <option value="">Select Country</option>
+                                    <option value="US">United States</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="IN">India</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="FR">France</option>
+                                    <option value="JP">Japan</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <div class="invalid-feedback" id="countryError"></div>
+                                <div class="valid-feedback" id="countrySuccess"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Added occupation field -->
+                    <div class="form-group">
+                        <label class="form-label" for="registerOccupation">Occupation</label>
+                        <input type="text" class="form-control" id="registerOccupation" placeholder="Enter your occupation">
+                        <div class="invalid-feedback" id="occupationError"></div>
+                        <div class="valid-feedback" id="occupationSuccess"></div>
+                    </div>
+                    <!-- Added interests field -->
+                    <div class="form-group">
+                        <label class="form-label">Shopping Interests (Select all that apply)</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="interestElectronics" value="electronics">
+                                    <label class="form-check-label" for="interestElectronics">Electronics</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="interestClothing" value="clothing">
+                                    <label class="form-check-label" for="interestClothing">Clothing & Fashion</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="interestHome" value="home">
+                                    <label class="form-check-label" for="interestHome">Home & Garden</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="interestSports" value="sports">
+                                    <label class="form-check-label" for="interestSports">Sports & Outdoors</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="interestBooks" value="books">
+                                    <label class="form-check-label" for="interestBooks">Books & Media</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="interestBeauty" value="beauty">
+                                    <label class="form-check-label" for="interestBeauty">Beauty & Health</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Added newsletter subscription -->
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="subscribeNewsletter">
+                            <label class="form-check-label" for="subscribeNewsletter">
+                                Subscribe to our newsletter for deals and updates
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="registerPassword">Password</label>
+                        <input type="password" class="form-control" id="registerPassword" placeholder="Create a strong password">
+                        <div class="password-strength">
+                            <div class="strength-bar">
+                                <div class="strength-fill" id="strengthFill"></div>
+                            </div>
+                            <div class="strength-text" id="strengthText">Password strength</div>
+                        </div>
+                        <div class="invalid-feedback" id="registerPasswordError"></div>
+                        <div class="valid-feedback" id="registerPasswordSuccess"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="confirmPassword">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password">
+                        <div class="invalid-feedback" id="confirmPasswordError"></div>
+                        <div class="valid-feedback" id="confirmPasswordSuccess"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="agreeTerms">
+                            <label class="form-check-label" for="agreeTerms">
+                                I agree to the <a href="#" class="text-primary">Terms and Conditions</a>
+                            </label>
+                        </div>
+                        <div class="invalid-feedback" id="termsError"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-plus me-2"></i>Create Account
+                    </button>
+                </form>
+            </div>
+            <div class="auth-footer">
+                <p>Already have an account? <a href="#" onclick="showLogin()">Sign in here</a></p>
+            </div>
+        </div>
+
+        <!-- Welcome Section -->
+        <div class="welcome-section" id="welcomeSection">
+            <div class="welcome-card">
+                <div class="welcome-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Welcome to ShopMart!</h2>
+                <p class="lead" id="welcomeMessage">You have successfully logged in.</p>
+                <div class="mt-4">
+                    <button class="btn btn-outline-primary" onclick="logout()">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentUser = null;
+
+        window.addEventListener('beforeunload', function() {
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('users');
+        });
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            localStorage.removeItem('currentUser');
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Login form
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (validateLoginForm()) {
+                    login();
+                }
+            });
+
+            // Register form
+            document.getElementById('registerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (validateRegisterForm()) {
+                    register();
+                }
+            });
+
+            // Real-time validation
+            document.getElementById('loginEmail').addEventListener('input', validateLoginEmail);
+            document.getElementById('loginPassword').addEventListener('input', validateLoginPassword);
+            
+            document.getElementById('registerFirstName').addEventListener('input', validateFirstName);
+            document.getElementById('registerLastName').addEventListener('input', validateLastName);
+            document.getElementById('registerEmail').addEventListener('input', validateRegisterEmail);
+            document.getElementById('registerPhone').addEventListener('input', validatePhone);
+            document.getElementById('registerDob').addEventListener('input', validateDob);
+            document.getElementById('registerGender').addEventListener('change', validateGender);
+            document.getElementById('registerAddress').addEventListener('input', validateAddress);
+            document.getElementById('registerCity').addEventListener('input', validateCity);
+            document.getElementById('registerState').addEventListener('input', validateState);
+            document.getElementById('registerZip').addEventListener('input', validateZip);
+            document.getElementById('registerCountry').addEventListener('change', validateCountry);
+            document.getElementById('registerOccupation').addEventListener('input', validateOccupation);
+            document.getElementById('registerPassword').addEventListener('input', validateRegisterPassword);
+            document.getElementById('confirmPassword').addEventListener('input', validateConfirmPassword);
+            document.getElementById('agreeTerms').addEventListener('change', validateTerms);
+        }
+
+        function checkExistingLogin() {
+            return;
+        }
+
+        // Navigation functions
+        function showLogin() {
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('registerSection').style.display = 'none';
+            document.getElementById('welcomeSection').classList.remove('active');
+            clearForms();
+        }
+
+        function showRegister() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('registerSection').style.display = 'block';
+            document.getElementById('welcomeSection').classList.remove('active');
+            clearForms();
+        }
+
+        function showWelcome() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('registerSection').style.display = 'none';
+            document.getElementById('welcomeSection').classList.add('active');
+            document.getElementById('welcomeMessage').textContent = 
+                `Welcome back, ${currentUser.firstName} ${currentUser.lastName}!`;
+        }
+
+        function clearForms() {
+            document.getElementById('loginForm').reset();
+            document.getElementById('registerForm').reset();
+            clearValidationStates();
+        }
+
+        function clearValidationStates() {
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.classList.remove('is-valid', 'is-invalid');
+            });
+        }
+
+        // Validation functions
+        function validateLoginEmail() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const emailInput = document.getElementById('loginEmail');
+            const errorDiv = document.getElementById('loginEmailError');
+            const successDiv = document.getElementById('loginEmailSuccess');
+
+            if (!email) {
+                setValidationState(emailInput, false, 'Email is required', errorDiv, successDiv);
+                return false;
+            }
+
+            if (!isValidEmail(email)) {
+                setValidationState(emailInput, false, 'Please enter a valid email (e.g., user@domain.com)', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(emailInput, true, 'Email looks good!', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateLoginPassword() {
+            const password = document.getElementById('loginPassword').value;
+            const passwordInput = document.getElementById('loginPassword');
+            const errorDiv = document.getElementById('loginPasswordError');
+            const successDiv = document.getElementById('loginPasswordSuccess');
+
+            if (!password) {
+                setValidationState(passwordInput, false, 'Password is required', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(passwordInput, true, 'Password entered', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateFirstName() {
+            const firstName = document.getElementById('registerFirstName').value.trim();
+            const firstNameInput = document.getElementById('registerFirstName');
+            const errorDiv = document.getElementById('firstNameError');
+            const successDiv = document.getElementById('firstNameSuccess');
+
+            if (!firstName) {
+                setValidationState(firstNameInput, false, 'First name is required', errorDiv, successDiv);
+                return false;
+            }
+
+            if (!isValidName(firstName)) {
+                setValidationState(firstNameInput, false, 'Special characters not allowed in name', errorDiv, successDiv);
+                return false;
+            }
+
+            if (firstName.length < 2) {
+                setValidationState(firstNameInput, false, 'First name must be at least 2 characters', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(firstNameInput, true, 'First name looks good!', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateLastName() {
+            const lastName = document.getElementById('registerLastName').value.trim();
+            const lastNameInput = document.getElementById('registerLastName');
+            const errorDiv = document.getElementById('lastNameError');
+            const successDiv = document.getElementById('lastNameSuccess');
+
+            if (!lastName) {
+                setValidationState(lastNameInput, false, 'Last name is required', errorDiv, successDiv);
+                return false;
+            }
+
+            if (!isValidName(lastName)) {
+                setValidationState(lastNameInput, false, 'Special characters not allowed in name', errorDiv, successDiv);
+                return false;
+            }
+
+            if (lastName.length < 2) {
+                setValidationState(lastNameInput, false, 'Last name must be at least 2 characters', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(lastNameInput, true, 'Last name looks good!', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateRegisterEmail() {
+            const email = document.getElementById('registerEmail').value.trim();
+            const emailInput = document.getElementById('registerEmail');
+            const errorDiv = document.getElementById('registerEmailError');
+            const successDiv = document.getElementById('registerEmailSuccess');
+
+            if (!email) {
+                setValidationState(emailInput, false, 'Email is required', errorDiv, successDiv);
+                return false;
+            }
+
+            if (!isValidEmail(email)) {
+                setValidationState(emailInput, false, 'Please enter a valid email (e.g., user@domain.com)', errorDiv, successDiv);
+                return false;
+            }
+
+            // Check if email already exists
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            if (users.find(user => user.email === email)) {
+                setValidationState(emailInput, false, 'Email already registered. Please use a different email.', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(emailInput, true, 'Email is available!', errorDiv, successDiv);
+            return true;
+        }
+
+        function validatePhone() {
+            const phone = document.getElementById('registerPhone').value.trim();
+            const phoneInput = document.getElementById('registerPhone');
+            const errorDiv = document.getElementById('phoneError');
+            const successDiv = document.getElementById('phoneSuccess');
+
+            if (!phone) {
+                setValidationState(phoneInput, false, 'Phone number is required', errorDiv, successDiv);
+                return false;
+            }
+
+            if (!isValidPhone(phone)) {
+                setValidationState(phoneInput, false, 'Phone number must be exactly 10 digits', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(phoneInput, true, 'Phone number is valid!', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateDob() {
+            const dob = document.getElementById('registerDob').value;
+            const dobInput = document.getElementById('registerDob');
+            const errorDiv = document.getElementById('dobError');
+            const successDiv = document.getElementById('dobSuccess');
+
+            if (!dob) {
+                setValidationState(dobInput, false, 'Date of birth is required', errorDiv, successDiv);
+                return false;
+            }
+
+            const birthDate = new Date(dob);
+            const today = new Date();
+            const age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            if (age < 13) {
+                setValidationState(dobInput, false, 'You must be at least 13 years old to register', errorDiv, successDiv);
+                return false;
+            }
+
+            if (age > 120) {
+                setValidationState(dobInput, false, 'Please enter a valid date of birth', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(dobInput, true, 'Date of birth is valid', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateGender() {
+            const gender = document.getElementById('registerGender').value;
+            const genderInput = document.getElementById('registerGender');
+            const errorDiv = document.getElementById('genderError');
+            const successDiv = document.getElementById('genderSuccess');
+
+            if (!gender) {
+                setValidationState(genderInput, false, 'Please select your gender', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(genderInput, true, 'Gender selected', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateAddress() {
+            const address = document.getElementById('registerAddress').value.trim();
+            const addressInput = document.getElementById('registerAddress');
+            const errorDiv = document.getElementById('addressError');
+            const successDiv = document.getElementById('addressSuccess');
+
+            if (!address) {
+                setValidationState(addressInput, false, 'Street address is required', errorDiv, successDiv);
+                return false;
+            }
+
+            if (address.length < 5) {
+                setValidationState(addressInput, false, 'Please enter a complete address', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(addressInput, true, 'Address looks good!', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateCity() {
+            const city = document.getElementById('registerCity').value.trim();
+            const cityInput = document.getElementById('registerCity');
+            const errorDiv = document.getElementById('cityError');
+            const successDiv = document.getElementById('citySuccess');
+
+            if (!city) {
+                setValidationState(cityInput, false, 'City is required', errorDiv, successDiv);
+                return false;
+            }
+
+            if (!isValidName(city)) {
+                setValidationState(cityInput, false, 'Special characters not allowed in city name', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(cityInput, true, 'City is valid', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateState() {
+            const state = document.getElementById('registerState').value.trim();
+            const stateInput = document.getElementById('registerState');
+            const errorDiv = document.getElementById('stateError');
+            const successDiv = document.getElementById('stateSuccess');
+
+            if (!state) {
+                setValidationState(stateInput, false, 'State is required', errorDiv, successDiv);
+                return false;
+            }
+
+            if (!isValidName(state)) {
+                setValidationState(stateInput, false, 'Special characters not allowed in state name', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(stateInput, true, 'State is valid', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateZip() {
+            const zip = document.getElementById('registerZip').value.trim();
+            const zipInput = document.getElementById('registerZip');
+            const errorDiv = document.getElementById('zipError');
+            const successDiv = document.getElementById('zipSuccess');
+
+            if (!zip) {
+                setValidationState(zipInput, false, 'ZIP code is required', errorDiv, successDiv);
+                return false;
+            }
+
+            const zipRegex = /^\d{5}(-\d{4})?$/;
+            if (!zipRegex.test(zip)) {
+                setValidationState(zipInput, false, 'Please enter a valid ZIP code (e.g., 12345 or 12345-6789)', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(zipInput, true, 'ZIP code is valid', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateCountry() {
+            const country = document.getElementById('registerCountry').value;
+            const countryInput = document.getElementById('registerCountry');
+            const errorDiv = document.getElementById('countryError');
+            const successDiv = document.getElementById('countrySuccess');
+
+            if (!country) {
+                setValidationState(countryInput, false, 'Please select your country', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(countryInput, true, 'Country selected', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateOccupation() {
+            const occupation = document.getElementById('registerOccupation').value.trim();
+            const occupationInput = document.getElementById('registerOccupation');
+            const errorDiv = document.getElementById('occupationError');
+            const successDiv = document.getElementById('occupationSuccess');
+
+            if (!occupation) {
+                setValidationState(occupationInput, false, 'Occupation is required', errorDiv, successDiv);
+                return false;
+            }
+
+            if (occupation.length < 2) {
+                setValidationState(occupationInput, false, 'Please enter a valid occupation', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(occupationInput, true, 'Occupation is valid', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateRegisterPassword() {
+            const password = document.getElementById('registerPassword').value;
+            const passwordInput = document.getElementById('registerPassword');
+            const errorDiv = document.getElementById('registerPasswordError');
+            const successDiv = document.getElementById('registerPasswordSuccess');
+
+            if (!password) {
+                setValidationState(passwordInput, false, 'Password is required', errorDiv, successDiv);
+                updatePasswordStrength(0);
+                return false;
+            }
+
+            const strength = getPasswordStrength(password);
+            updatePasswordStrength(strength);
+
+            if (password.length < 8) {
+                setValidationState(passwordInput, false, 'Password must be at least 8 characters long', errorDiv, successDiv);
+                return false;
+            }
+
+            if (strength < 3) {
+                setValidationState(passwordInput, false, 'Password is too weak. Include uppercase, lowercase, numbers, and special characters.', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(passwordInput, true, 'Strong password!', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateConfirmPassword() {
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const errorDiv = document.getElementById('confirmPasswordError');
+            const successDiv = document.getElementById('confirmPasswordSuccess');
+
+            if (!confirmPassword) {
+                setValidationState(confirmPasswordInput, false, 'Please confirm your password', errorDiv, successDiv);
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                setValidationState(confirmPasswordInput, false, 'Passwords do not match', errorDiv, successDiv);
+                return false;
+            }
+
+            setValidationState(confirmPasswordInput, true, 'Passwords match!', errorDiv, successDiv);
+            return true;
+        }
+
+        function validateTerms() {
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            const errorDiv = document.getElementById('termsError');
+
+            if (!agreeTerms) {
+                errorDiv.textContent = 'You must agree to the Terms and Conditions';
+                errorDiv.style.display = 'block';
+                return false;
+            }
+
+            errorDiv.style.display = 'none';
+            return true;
+        }
+
+        // Helper validation functions
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function isValidName(name) {
+            const nameRegex = /^[a-zA-Z\s'-]+$/;
+            return nameRegex.test(name);
+        }
+
+        function isValidPhone(phone) {
+            const phoneRegex = /^\d{10}$/;
+            return phoneRegex.test(phone);
+        }
+
+        function getPasswordStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password)) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            return strength;
+        }
+
+        function updatePasswordStrength(strength) {
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
+            
+            const colors = ['#dc2626', '#f59e0b', '#eab308', '#22c55e', '#059669'];
+            const texts = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+            const widths = ['20%', '40%', '60%', '80%', '100%'];
+
+            if (strength > 0) {
+                strengthFill.style.backgroundColor = colors[strength - 1];
+                strengthFill.style.width = widths[strength - 1];
+                strengthText.textContent = texts[strength - 1];
+                strengthText.style.color = colors[strength - 1];
+            } else {
+                strengthFill.style.width = '0%';
+                strengthText.textContent = 'Password strength';
+                strengthText.style.color = '#64748b';
+            }
+        }
+
+        function setValidationState(input, isValid, message, errorDiv, successDiv) {
+            if (isValid) {
+                input.classList.remove('is-invalid');
+                input.classList.add('is-valid');
+                errorDiv.style.display = 'none';
+                successDiv.textContent = message;
+                successDiv.style.display = 'block';
+            } else {
+                input.classList.remove('is-valid');
+                input.classList.add('is-invalid');
+                successDiv.style.display = 'none';
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        // Form validation functions
+        function validateLoginForm() {
+            const emailValid = validateLoginEmail();
+            const passwordValid = validateLoginPassword();
+            return emailValid && passwordValid;
+        }
+
+        function validateRegisterForm() {
+            const firstNameValid = validateFirstName();
+            const lastNameValid = validateLastName();
+            const emailValid = validateRegisterEmail();
+            const phoneValid = validatePhone();
+            const dobValid = validateDob();
+            const genderValid = validateGender();
+            const addressValid = validateAddress();
+            const cityValid = validateCity();
+            const stateValid = validateState();
+            const zipValid = validateZip();
+            const countryValid = validateCountry();
+            const occupationValid = validateOccupation();
+            const passwordValid = validateRegisterPassword();
+            const confirmPasswordValid = validateConfirmPassword();
+            const termsValid = validateTerms();
+
+            return firstNameValid && lastNameValid && emailValid && phoneValid && 
+                   dobValid && genderValid && addressValid && cityValid && stateValid &&
+                   zipValid && countryValid && occupationValid && passwordValid && 
+                   confirmPasswordValid && termsValid;
+        }
+
+        // Authentication functions
+        function register() {
+            const firstName = document.getElementById('registerFirstName').value.trim();
+            const lastName = document.getElementById('registerLastName').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const phone = document.getElementById('registerPhone').value.trim();
+            const dob = document.getElementById('registerDob').value;
+            const gender = document.getElementById('registerGender').value;
+            const address = document.getElementById('registerAddress').value.trim();
+            const city = document.getElementById('registerCity').value.trim();
+            const state = document.getElementById('registerState').value.trim();
+            const zip = document.getElementById('registerZip').value.trim();
+            const country = document.getElementById('registerCountry').value;
+            const occupation = document.getElementById('registerOccupation').value.trim();
+            const password = document.getElementById('registerPassword').value;
+
+            const interests = [];
+            const interestCheckboxes = document.querySelectorAll('input[type="checkbox"][id^="interest"]:checked');
+            interestCheckboxes.forEach(checkbox => interests.push(checkbox.value));
+
+            const subscribeNewsletter = document.getElementById('subscribeNewsletter').checked;
+
+            const newUser = {
+                id: Date.now(),
+                firstName,
+                lastName,
+                email,
+                phone,
+                dob,
+                gender,
+                address,
+                city,
+                state,
+                zip,
+                country,
+                occupation,
+                interests,
+                subscribeNewsletter,
+                password,
+                registrationDate: new Date().toISOString()
+            };
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Registration successful! You can now login with your credentials.');
+            showLogin();
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                showWelcome();
+            } else {
+                alert('Invalid email or password. Please check your credentials and try again.');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            showLogin();
+        }
+    </script>
+</body>
+</html>
