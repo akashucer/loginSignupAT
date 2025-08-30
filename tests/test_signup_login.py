@@ -38,10 +38,16 @@ def test_user_can_Register(driver):
         signup_page.enter_zip(user_data["Zip Code"])
         signup_page.enter_country(user_data["Country"])
         signup_page.enter_occupation(user_data["Occupation"])
-        signup_page.enter_password(user_data["Password"])
-        signup_page.enter_confirm_password(user_data["Password"])
-        allure.add_attachment("PNG", driver.get_screenshot_as_png(), "image/png")
-        signup_page.select_gender("Male")
+        password = user_data["Password"]
+        signup_page.enter_password(password)
+        signup_page.enter_confirm_password(password)  # Use the same password variable
+        allure.attach(  # Using the same password
+        
+            driver.get_screenshot_as_png(),
+            "Password Fields Filled",
+            attachment_type=allure.attachment_type.PNG
+        )
+        signup_page.select_gender(user_data["Gender"])  # Using gender from user data
         signup_page.agree_terms()
 
     with allure.step("Submit Signup form"):
