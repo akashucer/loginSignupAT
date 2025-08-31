@@ -12,19 +12,14 @@ def generate_hex_phone():
     return phone
 
 def generate_user():
-    # Calculate date ranges for someone at least 13 years old
+    # Generate a date for a person between 13 and 80 years old.
     today = date.today()
-    start_year = today.year - 80  # 80 years ago
-    end_year = today.year - 13    # 13 years ago
+    start_date = today.replace(year=today.year - 80)
+    end_date = today.replace(year=today.year - 13)
+    dob = fake.date_between_dates(date_start=start_date, date_end=end_date)
     
-    # Generate random month and day
-    month = random.randint(1, 12)
-    day = random.randint(1, 28)  # Using 28 to be safe for all months
-    year = random.randint(start_year, end_year)
-    
-    # Create date object and format it
-    dob = date(year, month, day)
-    formatted_dob = dob.strftime("%m/%d/%Y")  # Ensures MM/DD/YYYY format
+    # Format date as YYYY-MM-DD for the date input field
+    formatted_dob = dob.strftime("%Y-%m-%d")
     
     # Generate a strong password
     password = fake.password(length=12, special_chars=True, digits=True, upper_case=True, lower_case=True)
@@ -33,7 +28,7 @@ def generate_user():
         "First Name": fake.first_name(),
         "Last Name": fake.last_name(),
         "Email": fake.email(),
-        "Phone No": generate_hex_phone(),
+                "Phone No": fake.numerify(text='##########'),
         "DOB": formatted_dob,
         "Street Address": fake.street_address(),
         "City": fake.city(),
@@ -44,6 +39,4 @@ def generate_user():
         "Password": password,
         "Confirm Password": password,  # Same as password field
         "Gender": "male"  # Fixed value for male gender
-    }
-
-# print(generate_user())
+    }# print(generate_user())
