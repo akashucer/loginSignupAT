@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Infrastructure Problems",
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*(TimeoutException|NoSuchElementException).*",
+    "description": "Tests failed due to infrastructure issues like timeouts or missing elements."
+  },
+  {
+    "name": "Assertion Errors",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*AssertionError.*",
+    "description": "Tests failed due to assertion failures in the test logic."
+  },
+  {
+    "name": "Invalid Credentials",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*Invalid email or password.*",
+    "description": "Tests failed specifically because of invalid login credentials."
+  }
+]
